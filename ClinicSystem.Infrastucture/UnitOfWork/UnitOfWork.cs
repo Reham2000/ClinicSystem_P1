@@ -2,6 +2,7 @@
 using ClinicSystem.Domain.Entities;
 using ClinicSystem.Infrastucture.Data;
 using ClinicSystem.Infrastucture.Reposatories;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace ClinicSystem.Infrastucture.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _context;
+        private IDbContextTransaction _transaction;
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -33,6 +35,38 @@ namespace ClinicSystem.Infrastucture.UnitOfWork
         public void Dispose()
         {
             _context.Dispose();
+        }
+
+        public async Task<int> CompleteAsync()
+        {
+           return await _context.SaveChangesAsync();
+        }
+
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            _transaction = await _context.Database.BeginTransactionAsync();
+            return _transaction;
+        }
+
+        public async Task CommitTransactionAsync()
+        {
+            if (_transaction != null)
+            {
+                await _transaction.CommitAsync();
+                await _transaction.DisposeAsync();
+                _transaction = null;
+            }
+
+        }
+
+        public async Task RollbackTransactionAsync()
+        {
+            if(_transaction != null )
+            {
+                await _transaction.RollbackAsync();
+                await _transaction.DisposeAsync();
+                _transaction = null;
+            }
         }
     }
 }

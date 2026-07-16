@@ -11,11 +11,12 @@ namespace ClinicSystem.Application.InterFaces
     public interface IUnitOfWork : IDisposable
     {
         IReposatory<T> Reposatory<T>() where T : BaseEntity;
-
+        Task<int> CompleteAsync();
 
         // transactions
         Task<IDbContextTransaction> BeginTransactionAsync();
-        Task Commit
+        Task CommitTransactionAsync();
+        Task RollbackTransactionAsync();
 
     }
 }
