@@ -13,7 +13,11 @@ namespace ClinicSystem.Infrastucture.Data
         protected AppDbContext()
         {
         }
-
+        public DbSet<Department> departments { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Patient> Patients {  get; set; }
+        public DbSet<Appontment> Appontments { get; set; }
+        public DbSet<AppoinmentPatientDetails> AppoinmentPatientDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

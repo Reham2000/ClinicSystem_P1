@@ -1,5 +1,10 @@
+using ClinicSystem.Application.InterFaces;
+using ClinicSystem.Application.InterFaces.Servecies;
+using ClinicSystem.Application.Mapper;
 using ClinicSystem.Domain.Entities;
 using ClinicSystem.Infrastucture.Data;
+using ClinicSystem.Infrastucture.Services;
+using ClinicSystem.Infrastucture.UnitOfWork;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,8 +23,15 @@ builder.Services.AddIdentity<User, IdentityRole>(op =>
 .AddDefaultTokenProviders();
 
 
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
 
+
+builder.Services.AddAutoMapper(config =>
+{
+
+}, typeof(DepartmentProfile).Assembly);
 
 var app = builder.Build();
 
