@@ -1,5 +1,6 @@
 ﻿using AspNetCoreGeneratedDocument;
 using ClinicSystem.Application.InterFaces.Servecies;
+using ClinicSystem.Domain.DTos.Department;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -22,6 +23,35 @@ namespace ClinicSystem.Web.Controllers
                 return View(departments);
             }
             return View(nameof(Views_Shared__404));
+        }
+        public async Task<IActionResult> Details(int id)
+        {
+            var result = await _departmentService.GetByIdAsync(id);
+            if (result.IsSuccessed)
+            {
+                var data = result.Data;
+
+                return View(data);
+            }
+            return View(nameof(Views_Shared__404));
+        }
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateDepartmentDto dto)
+        {
+            if(! ModelState.IsValid)
+            {
+                return View(dto);
+            }
+            var result = await _departmentService.CreateAsync(dto);
+            if (result.IsSuccessed)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(dto);
         }
     }
 }

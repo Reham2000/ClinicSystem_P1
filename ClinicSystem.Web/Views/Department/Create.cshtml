@@ -1,0 +1,54 @@
+﻿@model CreateDepartmentDto
+
+<!-- Contact Section -->
+<section id="contact" class="contact section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Create New Deparment</h2>
+    </div><!-- End Section Title -->
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4 justify-content-center">
+
+           
+
+            <div class="col-lg-10">
+                @* <form asp-action="Create"  method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200"> *@
+                   <form asp-action="Create" method="post">
+                    <div class="row gy-4">
+
+                        <div class="col-md-12">
+                            <label asp-for="Name" class="pb-2"></label>
+                            <input asp-for="Name" type="text"  id="name-field" class="form-control" required="">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12">
+                            <label asp-for="CreatedBy" class="pb-2"></label>
+                            <input asp-for="CreatedBy" type="text"  id="name-field" class="form-control" required="">
+                            <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                        </div>
+
+                        
+
+                        <div class="col-md-12">
+                            <label asp-for="Description" class="pb-2"></label>
+                            <textarea asp-for="Description" class="form-control"  rows="10" id="message-field" required=""></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        
+
+                            <button type="submit">Create</button>
+                        </div>
+
+                    
+                </form>
+            </div><!-- End Contact Form -->
+
+        </div>
+
+    </div>
+
+</section><!-- /Contact Section -->

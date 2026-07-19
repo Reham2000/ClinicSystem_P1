@@ -31,10 +31,21 @@ namespace ClinicSystem.Infrastucture.Services
             var result = _mapper.Map<IEnumerable<DepartmentDto>>(departments);
             return Result<IEnumerable<DepartmentDto>>.Success(data: result);
         }
-
-        public Task<Result> CreateAsync(CreateDepartmentDto dto)
+        public async Task<Result<DepatmentDetailsDto>> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var repo = _unitOfWork.Reposatory<Department>();
+            var department = await repo.FindAsync(d => d.Id == id,d => d.Doctors);
+            var result = _mapper.Map<DepatmentDetailsDto>(department);
+            return Result<DepatmentDetailsDto>.Success(data: result);
+        }
+        public async Task<Result> CreateAsync(CreateDepartmentDto dto)
+        {
+            var repo = _unitOfWork.Reposatory<Department>();
+            var data = _mapper.Map<Department>(dto);
+            await repo.AddAsync(data);
+            if (await _unitOfWork.CompleteAsync() > 0)
+                return Result.Success();
+            return Result.Faild("Department doesn't added");
         }
 
         public Task<Result> DeleteAsync(int id)
@@ -44,10 +55,7 @@ namespace ClinicSystem.Infrastucture.Services
 
         
 
-        public Task<Result<DepartmentDto>> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public Task<Result> RestoreAsync(int id)
         {

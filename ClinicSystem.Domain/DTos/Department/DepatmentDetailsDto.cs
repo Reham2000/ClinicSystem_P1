@@ -14,6 +14,6 @@ namespace ClinicSystem.Domain.DTos.Department
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string CreatedBy { get; set; }
-        List<Doctor> Doctors { get; set; }
+        public List<Doctor> Doctors { get; set; }
     }
 }

@@ -21,6 +21,7 @@ namespace ClinicSystem.Application.Mapper
             CreateMap<UpdateDepartmentDto, Department>();
             // entity => update dto
             CreateMap<Department, UpdateDepartmentDto>();
+            CreateMap<Department, DepatmentDetailsDto>();
         }
     }
 }
