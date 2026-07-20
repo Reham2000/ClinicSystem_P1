@@ -1,4 +1,5 @@
-﻿using ClinicSystem.Domain.Entities;
+﻿using ClinicSystem.Domain.DTos.Doctors;
+using ClinicSystem.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,6 @@ namespace ClinicSystem.Domain.DTos.Department
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string CreatedBy { get; set; }
-        public List<Doctor> Doctors { get; set; }
+        public List<DoctorDto> Doctors { get; set; }
     }
 }

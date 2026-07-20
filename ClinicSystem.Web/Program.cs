@@ -25,6 +25,8 @@ builder.Services.AddIdentity<User, IdentityRole>(op =>
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IDoctorservice, DoctorService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 
 

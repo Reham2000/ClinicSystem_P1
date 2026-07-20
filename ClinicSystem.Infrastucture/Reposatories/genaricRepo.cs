@@ -102,8 +102,23 @@ namespace ClinicSystem.Infrastucture.Reposatories
             Update(entity);
         }
 
-        
+        public async Task<T?> FindAsync(Expression<Func<T, bool>> predicate, 
+            Func<IQueryable<T>, IQueryable<T>>? incude = null)
+        {
+            IQueryable<T> query = _table;
+            if (incude != null)
+                query = incude(query);
+            return await query.FirstOrDefaultAsync(predicate);
+        }
 
-        
+        public async Task<IEnumerable<T?>> FindAllAsync(Expression<Func<T, bool>> predicate,
+            Func<IQueryable<T>, IQueryable<T>>? incude = null)
+        {
+            IQueryable<T> query = _table;
+            if (incude != null)
+                query = incude(query);
+                //query = query.Include(d => d.Doctors).ThenInclude(doc => doc.User)
+            return await query.Where(predicate).ToListAsync();
+        }
     }
 }

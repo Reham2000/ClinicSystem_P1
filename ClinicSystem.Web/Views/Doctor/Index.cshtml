@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DoctorDto>
+@if(TempData["Success"] != "")
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+    
+}
+
+<div class="container">
+
+    <div class="row gy-4">
+        @foreach (var doctor in Model)
+        {
+
+
+            <div class="col-lg-6 shadow " data-aos="fade-up" data-aos-delay="100">
+                <div class="team-member d-flex align-items-start">
+                    <div class="pic">
+                        <img src="~/Uploads/Doctors/@doctor.Image" class="img-fluid w-50" alt="@doctor.FullName">
+                        </div>
+                    <div class="member-info p-4">
+                        <h4>@doctor.FullName</h4>
+                        <span>@doctor.UserName</span>
+                        <span>@doctor.Email</span>
+                        <p>@doctor.Spisalization</p>
+                        <span>@doctor.Phonenumber</span>
+                        <span>@doctor.DepartmentName</span>
+                        <span>@doctor.Gender</span>
+
+                        <div class="social">
+                            <a href=""><i class="bi bi-twitter-x"></i></a>
+                            <a href=""><i class="bi bi-facebook"></i></a>
+                            <a href=""><i class="bi bi-instagram"></i></a>
+                            <a href=""> <i class="bi bi-linkedin"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- End Team Member -->
+        }
+
+    </div>
+
+</div>

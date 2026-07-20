@@ -11,7 +11,7 @@ namespace ClinicSystem.Application.InterFaces.Servecies
 {
     public interface IDoctorservice
     {
-        //Task<Result<IEnumerable<DepartmentDto>>> GetAllAsync();
+        Task<Result<IEnumerable<DoctorDto>>> GetAllAsync();
         //Task<Result<DepatmentDetailsDto>> GetByIdAsync(int id);
         Task<Result> CreateAsync(CreateDoctorDto dto);
         //Task<Result> UpdateAsync(UpdateDepartmentDto dto);

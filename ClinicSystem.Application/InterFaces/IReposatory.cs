@@ -23,6 +23,16 @@ namespace ClinicSystem.Application.InterFaces
         Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> predicate,
                                           params Expression<Func<T, object>>[] includes);
 
+
+
+        Task<T?> FindAsync(Expression<Func<T, bool>> predicate
+                        , Func<IQueryable<T>, IQueryable<T>>? incude = null
+            );
+        Task<IEnumerable<T?>> FindAllAsync(Expression<Func<T, bool>> predicate
+                        , Func<IQueryable<T>, IQueryable<T>>? incude = null
+            );
+
+
         // Exist
 
         Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate);

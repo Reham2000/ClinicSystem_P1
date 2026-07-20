@@ -29,6 +29,16 @@ namespace ClinicSystem.Infrastucture.Services
             _roleManager = roleManager;
             _webHost = webHost;
         }
+        public async Task<Result<IEnumerable<DoctorDto>>> GetAllAsync()
+        {
+            var repo = _unitOfWork.Reposatory<Doctor>();
+            var doctors = await repo.GetAllAsync(
+                d => d.User,
+                d => d.Department
+                );
+            var result = _mapper.Map<IEnumerable<DoctorDto>>( doctors );
+            return Result<IEnumerable<DoctorDto>>.Success(result);
+        }
         public async Task<Result> CreateAsync(CreateDoctorDto dto)
         {
             var doctorRepo =  _unitOfWork.Reposatory<Doctor>();
@@ -126,7 +136,9 @@ namespace ClinicSystem.Infrastucture.Services
                     Spisalization = dto.Spisalization,
                     Fee = dto.Fee,
                     Image = fileName,
-                    ImageBytes = imageBytes
+                    ImageBytes = imageBytes,
+                    CreatedBy = dto.CreatedBy,
+                    CreatedAt = DateTime.Now
                 };
                 await doctorRepo.AddAsync(doctor);
 

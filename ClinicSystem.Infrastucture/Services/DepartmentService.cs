@@ -4,6 +4,7 @@ using ClinicSystem.Application.InterFaces;
 using ClinicSystem.Application.InterFaces.Servecies;
 using ClinicSystem.Domain.DTos.Department;
 using ClinicSystem.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,12 @@ namespace ClinicSystem.Infrastucture.Services
         public async Task<Result<DepatmentDetailsDto>> GetByIdAsync(int id)
         {
             var repo = _unitOfWork.Reposatory<Department>();
-            var department = await repo.FindAsync(d => d.Id == id,d => d.Doctors);
+            //var department = await repo.FindAsync(d => d.Id == id,d => d.Doctors);
+            var department = await repo.FindAsync(
+                d => d.Id == id,
+                query => query.Include(d => d.Doctors ).ThenInclude(doc => doc.User)
+
+                );
             var result = _mapper.Map<DepatmentDetailsDto>(department);
             return Result<DepatmentDetailsDto>.Success(data: result);
         }
